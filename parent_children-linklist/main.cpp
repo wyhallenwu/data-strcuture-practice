@@ -108,12 +108,35 @@ public:
     }
 
     int depth(node<T> *r){
-        node<T> *p;
+        int dep=0,pre_level_num=0,current_level_num;
         if(get_root()==NULL)
-            return 0;
+            return dep;
         else{
-
+            queue< node<T>* > q;
+            q.push(r);
+            dep=1;
+            pre_level_num=1;
+            r = r->child;
+            while(!q.empty()){
+                current_level_num=0;
+                for(int i=0;i<pre_level_num;i++)
+                {
+                    r=q.front()->child;
+                    q.pop();
+                    while(r!=NULL)
+                    {
+                        q.push(r);
+                        r=r->sibling;
+                        current_level_num++;
+                    }
+                }
+                if(current_level_num!=0) {
+                    dep++;
+                    pre_level_num = current_level_num;
+                }
+            }
         }
+        return dep;
     }
 
 
@@ -130,6 +153,8 @@ int main(){
     t.insert(11,16,child);
     t.insert(12,17,child);
     t.insert(13,18,child);
+    t.insert(18,19,child);
+    t.insert(19,20,child);
     cout<<"level show: ";
     t.level_show(t.get_root());
     cout<<endl<<"pre show: ";
@@ -137,6 +162,6 @@ int main(){
     cout<<endl<<"last show: ";
     t.last_show(t.get_root());
     cout<<endl;
-    cout<<t.depth(t.get_root()->child);
+    cout<<t.depth(t.get_root());
     return 0;
 }
