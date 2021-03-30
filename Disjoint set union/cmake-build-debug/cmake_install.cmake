@@ -1,4 +1,4 @@
-# Install script for directory: C:/Users/wuliwyh/Desktop/github/data-strcuture-practice/Disjoint set union
+# Install script for directory: C:/Users/wuliwyh/Desktop/github/data-structure-practice/Disjoint set union
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -40,5 +40,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "C:/Users/wuliwyh/Desktop/github/data-strcuture-practice/Disjoint set union/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "C:/Users/wuliwyh/Desktop/github/data-structure-practice/Disjoint set union/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

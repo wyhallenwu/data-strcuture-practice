@@ -36,6 +36,14 @@ public:
         array[0].parent=(-1)*size_;
     }
 
+    tree(T *array_,int size_,int max_size_):max_size(max_size_) {
+        array = new node<T>[max_size];
+        for(int i=0;i<size_;i++) {
+            array[i].data = array_[i];
+        }
+        array[0].parent=(-1)*size_;
+    }
+
     int get_size(){
         return array[0].parent*(-1);
     }

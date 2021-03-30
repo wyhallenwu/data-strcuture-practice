@@ -1,3 +1,3 @@
-C:/Users/wuliwyh/Desktop/github/data-structure-practice/parent_children-linklist/cmake-build-debug/CMakeFiles/parent_children_linklist.dir
-C:/Users/wuliwyh/Desktop/github/data-structure-practice/parent_children-linklist/cmake-build-debug/CMakeFiles/edit_cache.dir
-C:/Users/wuliwyh/Desktop/github/data-structure-practice/parent_children-linklist/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+C:/Users/wuliwyh/Desktop/github/data-structure-practice/children-sibling-linklist/cmake-build-debug/CMakeFiles/parent_children_linklist.dir
+C:/Users/wuliwyh/Desktop/github/data-structure-practice/children-sibling-linklist/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/wuliwyh/Desktop/github/data-structure-practice/children-sibling-linklist/cmake-build-debug/CMakeFiles/rebuild_cache.dir

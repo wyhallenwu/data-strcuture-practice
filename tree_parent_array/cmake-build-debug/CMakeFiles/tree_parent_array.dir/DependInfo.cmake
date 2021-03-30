@@ -4,7 +4,7 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "C:/Users/wuliwyh/Desktop/github/data-strcuture-practice/tree_parent_array/main.cpp" "C:/Users/wuliwyh/Desktop/github/data-strcuture-practice/tree_parent_array/cmake-build-debug/CMakeFiles/tree_parent_array.dir/main.cpp.obj"
+  "C:/Users/wuliwyh/Desktop/github/data-structure-practice/tree_parent_array/main.cpp" "C:/Users/wuliwyh/Desktop/github/data-structure-practice/tree_parent_array/cmake-build-debug/CMakeFiles/tree_parent_array.dir/main.cpp.obj"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 
