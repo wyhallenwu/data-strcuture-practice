@@ -1,0 +1,3 @@
+"C:\Program Files\JetBrains\CLion 2020.3\bin\cmake\win\bin\cmake.exe" -E rm -f CMakeFiles\Disjoint_set_union.dir/objects.a
+C:\PROGRA~2\MINGW-~1\mingw32\bin\ar.exe cr CMakeFiles\Disjoint_set_union.dir/objects.a @CMakeFiles\Disjoint_set_union.dir\objects1.rsp
+C:\PROGRA~2\MINGW-~1\mingw32\bin\G__~1.EXE -g   -Wl,--whole-archive CMakeFiles\Disjoint_set_union.dir/objects.a -Wl,--no-whole-archive  -o Disjoint_set_union.exe -Wl,--out-implib,libDisjoint_set_union.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\Disjoint_set_union.dir\linklibs.rsp
