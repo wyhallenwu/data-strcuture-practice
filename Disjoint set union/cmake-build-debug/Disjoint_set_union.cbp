@@ -80,9 +80,6 @@
 				</MakeCommands>
 			</Target>
 		</Build>
-		<Unit filename="C:/Users/wuliwyh/Desktop/github/data-structure-practice/Disjoint set union/child_sibling_tree.h">
-			<Option target="Disjoint_set_union"/>
-		</Unit>
 		<Unit filename="C:/Users/wuliwyh/Desktop/github/data-structure-practice/Disjoint set union/main.cpp">
 			<Option target="Disjoint_set_union"/>
 		</Unit>
