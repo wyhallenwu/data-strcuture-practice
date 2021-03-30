@@ -139,6 +139,27 @@ public:
         return dep;
     }
 
+    int get_degree(node<T> *r){
+        int max_degree=0;
+        if(r==NULL)
+            return max_degree;
+        queue< node<T> *> q;
+        q.push(r);
+        while(r!=NULL){
+            int n=0;
+            r=r->child;
+            while(r!=NULL){
+                q.push(r);
+                r=r->sibling;
+                n++;
+            }
+            if(max_degree<n)
+                max_degree=n;
+            q.pop();
+            r=q.front();
+        }
+        return max_degree;
+    }
 
 
 };
@@ -155,6 +176,7 @@ int main(){
     t.insert(13,18,child);
     t.insert(18,19,child);
     t.insert(19,20,child);
+    t.insert(11,21,child);
     cout<<"level show: ";
     t.level_show(t.get_root());
     cout<<endl<<"pre show: ";
@@ -163,5 +185,7 @@ int main(){
     t.last_show(t.get_root());
     cout<<endl;
     cout<<t.depth(t.get_root());
+    cout<<endl;
+    cout<<t.get_degree(t.get_root());
     return 0;
 }
