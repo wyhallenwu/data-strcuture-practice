@@ -92,7 +92,7 @@ public:
     }
 
 
-    void aggregate2(T data1,T data2)//  compare height :if height1 is less than height2 ,make root1 the child of root2
+    void aggregate2(T data1,T data2)//compare height :if height1 is less than height2 ,make root1 the child of root2
     {
         int index1=find_root_index(data1);
         int index2=find_root_index(data2);
@@ -190,17 +190,17 @@ void chose(dsu<T> &d){
     int i;
     cin>>i;
     if(i==1) {
-        cout<<"normal unite"<<endl;
+        cout<<"normal aggregate"<<endl;
         test1(d);
         d.show();
     }
     else if(i==2){
-        cout<<"unite by tree's height"<<endl;
+        cout<<"aggregate by tree's height"<<endl;
         test2(d);
         d.show();
     }
     else if(i==3) {
-        cout<<"unite by tree's nodes num"<<endl;
+        cout<<"aggregate by tree's nodes num"<<endl;
         test3(d);
         d.show();
     }

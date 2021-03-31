@@ -1,0 +1,3 @@
+"C:\Program Files\JetBrains\CLion 2020.3\bin\cmake\win\bin\cmake.exe" -E rm -f CMakeFiles\child_linklist_with_parent.dir/objects.a
+C:\PROGRA~2\MINGW-~1\mingw32\bin\ar.exe cr CMakeFiles\child_linklist_with_parent.dir/objects.a @CMakeFiles\child_linklist_with_parent.dir\objects1.rsp
+C:\PROGRA~2\MINGW-~1\mingw32\bin\G__~1.EXE -g   -Wl,--whole-archive CMakeFiles\child_linklist_with_parent.dir/objects.a -Wl,--no-whole-archive  -o child_linklist_with_parent.exe -Wl,--out-implib,libchild_linklist_with_parent.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\child_linklist_with_parent.dir\linklibs.rsp
