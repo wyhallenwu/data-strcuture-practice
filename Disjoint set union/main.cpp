@@ -71,25 +71,52 @@ public:
     void aggregate1(T data1,T data2){
         int index1=find_root_index(data1);
         int index2=find_root_index(data2);
-        array[index1].parent=array[index1].parent+array[index2].parent;
+        array[index1].parent+=array[index2].parent;
         array[index2].parent=index1;
+    }
+
+    int get_height(T goal_root){
+        int cur_height=0;
+        int max_height=0;
+        for(int i=0;i<size;i++){
+            node<T> *p=&array[i];
+            cur_height=0;
+            while(p->parent>=0){
+                cur_height++;
+                p=&array[p->parent];
+            }
+            if(cur_height>max_height&&p->data==goal_root)
+                max_height=cur_height;
+        }
+        return max_height+1;
     }
 
 
     void aggregate2(T data1,T data2)//  compare height :if height1 is less than height2 ,make root1 the child of root2
     {
-
+        int index1=find_root_index(data1);
+        int index2=find_root_index(data2);
+        if(get_height(array[index1].data)<get_height(array[index2].data))
+        {
+            array[index2].parent+=array[index1].parent;
+            array[index1].parent=index2;
+        }
+        else
+        {
+            array[index1].parent+=array[index2].parent;
+            array[index2].parent=index1;
+        }
     }
 
     void aggregate3(T data1,T data2){
         int index1=find_root_index(data1),index2=find_root_index(data2);
         if(index1!=index2){
             if(get_node_num(index1)<get_node_num(index2)){
-                array[index2].parent=array[index1].parent+array[index2].parent;
+                array[index2].parent+=array[index1].parent;
                 array[index1].parent=index2;
             }
             else{
-                array[index1].parent=array[index1].parent+array[index2].parent;
+                array[index1].parent+=array[index2].parent;
                 array[index2].parent=index1;
             }
         }
@@ -119,6 +146,25 @@ void test1(dsu<T> &d){
     d.aggregate1(1,3);
     d.aggregate1(1,14);
 }
+template <typename T>
+void test2(dsu<T> &d){
+    d.aggregate2(1,2);
+    d.aggregate2(3,4);
+    d.aggregate2(3,5);
+    d.aggregate2(1,7);
+    d.aggregate2(3,6);
+    d.aggregate2(8,9);
+    d.aggregate2(1,8);
+    d.aggregate2(3,10);
+    d.aggregate2(3,11);
+    d.aggregate2(3,12);
+    d.aggregate2(3,13);
+    d.aggregate2(14,15);
+    d.aggregate2(16,0);
+    d.aggregate2(14,16);
+    d.aggregate2(1,3);
+    d.aggregate2(1,14);
+}
 
 template <typename T>
 void test3(dsu<T> &d){
@@ -144,10 +190,17 @@ void chose(dsu<T> &d){
     int i;
     cin>>i;
     if(i==1) {
+        cout<<"normal unite"<<endl;
         test1(d);
         d.show();
     }
+    else if(i==2){
+        cout<<"unite by tree's height"<<endl;
+        test2(d);
+        d.show();
+    }
     else if(i==3) {
+        cout<<"unite by tree's nodes num"<<endl;
         test3(d);
         d.show();
     }
