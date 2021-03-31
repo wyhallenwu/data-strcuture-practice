@@ -46,15 +46,26 @@ public:
 
     }
     void insert_to_child_link(int p_index,node<T> *p){
-        if(array[p_index].child_next!=NULL)
+        if(array[p_index].child_next==NULL)
             &array[p_index].child_next=p;
+        else{
+            p->child_next=array[p_index].child_next.child_next;
+            array[p_index].child_next.child_next=p;
+        }
     }
 
     void change_relation(T parent_data,T child_data){
         int p_index=get_index(parent_data);
         int ch_index=get_index(child_data);
         array[ch_index].parent=p_index;
+        insert_to_child_link(p_index,&array[ch_index]);
+    }
 
+
+    void show(){
+        for(int i=0;i<size;i++){
+
+        }
     }
 };
 
