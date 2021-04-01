@@ -1,17 +1,15 @@
+//带双亲的孩子链表
 #include <iostream>
+#include <vector>
 using namespace std;
 template <typename T>
 struct node{
     T data;
     int parent;
-    node *child_next;
-    node(){
-        parent=-1;
-        child_next=NULL;
-    }
+    vector<T> child_list;
+    node(){parent=-1;}
     node(T data_):data(data_){
         parent=-1;
-        child_next=NULL;
     }
 };
 
@@ -45,31 +43,35 @@ public:
         }
 
     }
-    void insert_to_child_link(int p_index,node<T> *p){
-        if(array[p_index].child_next==NULL)
-            &array[p_index].child_next=p;
-        else{
-            p->child_next=array[p_index].child_next.child_next;
-            array[p_index].child_next.child_next=p;
-        }
-    }
 
     void change_relation(T parent_data,T child_data){
         int p_index=get_index(parent_data);
         int ch_index=get_index(child_data);
         array[ch_index].parent=p_index;
-        insert_to_child_link(p_index,&array[ch_index]);
+        array[p_index].child_list.push_back(child_data);
     }
 
 
     void show(){
         for(int i=0;i<size;i++){
-
+            cout<<"data: "<<array[i].data<<"  parent: "<<array[i].parent<<endl;
+            for(int j=0;j<array[i].child_list.size();j++)
+            {
+                cout<<array[i].child_list[j]<<" ";
+            }
+            cout<<endl;
         }
     }
 };
 
 int main() {
-
+    int data[6]={1,2,3,4,5,6};
+    link_list_of_child_with_parent<int> l(data,6,10);
+    l.change_relation(1,2);
+    l.change_relation(1,3);
+    l.change_relation(2,4);
+    l.change_relation(3,5);
+    l.change_relation(1,6);
+    l.show();
     return 0;
 }
