@@ -41,10 +41,18 @@ public:
     void change_relation(T data1,T data2){
         int index1=find_index(data1);
         int index2=find_index(data2);
-        
+        graph_list[index1].relation.push_back(graph_list[index2].data);
     }
 
     void show(){
+        for(int i=0;i<size;i++)
+        {
+            cout<<"data:  "<<graph_list[i].data<<endl;
+            for(int j=0;j<graph_list[i].relation.size();j++){
+                cout<<graph_list[i].relation[j]<<"---";
+            }
+            cout<<endl;
+        }
     }
 
 };
@@ -56,8 +64,9 @@ int main(){
     l.change_relation(2,1);
     l.change_relation(1,3);
     l.change_relation(1,4);
-    l.change_relation(3,3);
+    l.change_relation(2,4);
+    l.change_relation(4,5);
     l.change_relation(5,6);
-    l.change_relation(4,1);
+    l.change_relation(6,1);
     l.show();
 }
