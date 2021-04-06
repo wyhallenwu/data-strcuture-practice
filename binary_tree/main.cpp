@@ -86,9 +86,10 @@ public:
         node<T> *q=p;
         if(p->left!=NULL)
             q=find_parent_help(p->left,parent_data);
+        if(q!=NULL)
+            return q;
         if(p->right!=NULL)
             q=find_parent_help(p->right,parent_data);
-        q=NULL;
         return q;
     }
 };
@@ -101,7 +102,7 @@ int main() {
     t.insert(103,100,1);
     t.insert(104,101,0);
     t.insert(105,101,1);
-    t.insert(106,102,0);
-    t.in_order_recursive(t.get_root());
+    //t.insert(106,102,0);
+    t.pre_order_recursive(t.get_root());
     return 0;
 }
