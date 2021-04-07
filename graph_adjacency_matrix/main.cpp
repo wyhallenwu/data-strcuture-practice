@@ -22,6 +22,13 @@ public:
         for(int i=0;i<size;i++)
             data[i]=data_[i];
     }
+
+    virtual ~graph_adjacency_matrix() {
+        for(int i=0;i<size;i++)
+            delete []adjacency_matrix[i];
+        delete []adjacency_matrix;
+    }
+
     int find_index(T data_){
         for(int i=0;i<size;i++)
             if(data[i]==data_)

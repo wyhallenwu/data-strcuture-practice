@@ -11,6 +11,7 @@ struct node{
     node(T data_){
         data=data_;
     }
+
 };
 //directed graph
 template <typename T>
