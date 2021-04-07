@@ -137,6 +137,51 @@ public:
 
         }
     }
+    /*
+    void post_order_nonrecursive(node<T> *p){
+        stack<node<T> *> s;
+        while(p!=NULL){
+            while(p!=NULL){
+                s.push(p);
+                if(p->right!=NULL)
+                    s.push(p->right);
+                p=p->left;
+            }
+            cout<<s.top()->data<<"--";
+            s.pop();
+            p=s.top();
+            while(!s.empty()&&p->right==NULL){
+                cout<<p->data<<"--";
+                s.pop();
+                p=s.top();
+            }
+            if(!s.empty()) {
+                p = s.top();
+                s.pop();
+            }
+            else
+                p=NULL;
+        }
+    }
+     */
+    void post_order_nonrecursive(node<T> *p) {
+        stack<node<T> *> s;
+        node<T> *q = root;
+        while (p != NULL) {
+            for (; p->left != NULL; p = p->left)
+                s.push(p);
+            while (p->right == NULL || p->right == q) {
+                cout << p->data << "--";
+                q = p;
+                if (s.empty())
+                    return;
+                p = s.top();
+                s.pop();
+            }
+            s.push(p);
+            p = p->right;
+        }
+    }
 
 };
 
@@ -156,5 +201,9 @@ int main() {
     t.in_order_recursive(t.get_root());
     cout<<endl;
     t.in_order_nonreccursive(t.get_root());
+    cout<<endl;
+    t.post_order_recursive(t.get_root());
+    cout<<endl;
+    t.post_order_nonrecursive(t.get_root());
     return 0;
 }
