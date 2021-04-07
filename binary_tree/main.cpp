@@ -111,6 +111,33 @@ public:
         }
     }
 
+    void in_order_nonreccursive(node<T> *p){
+        stack<node<T> *> s;
+        while(p!=NULL){
+            while(p!=NULL) {
+                if (p->right != NULL)
+                    s.push(p->right);
+                s.push(p);
+                p = p->left;
+            }
+            p=s.top();
+            s.pop();
+            while(!s.empty()&&p->right==NULL){
+                cout<<p->data<<"--";
+                p=s.top();
+                s.pop();
+            }
+            cout<<p->data<<"--";
+            if(!s.empty()) {
+                p=s.top();
+                s.pop();
+            }
+            else
+                p=NULL;
+
+        }
+    }
+
 };
 
 int main() {
@@ -125,5 +152,9 @@ int main() {
     t.pre_order_nonrecursive(t.get_root());
     cout<<endl;
     t.pre_order_recursive(t.get_root());
+    cout<<endl;
+    t.in_order_recursive(t.get_root());
+    cout<<endl;
+    t.in_order_nonreccursive(t.get_root());
     return 0;
 }
