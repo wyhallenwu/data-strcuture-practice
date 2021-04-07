@@ -1,4 +1,5 @@
 #include <iostream>
+#include<stack>
 using namespace std;
 
 template <typename T>
@@ -83,7 +84,7 @@ public:
     node<T>* find_parent_help(node<T> *p,T parent_data){
         if(p->data==parent_data)
             return p;
-        node<T> *q=p;
+        node<T> *q=NULL;
         if(p->left!=NULL)
             q=find_parent_help(p->left,parent_data);
         if(q!=NULL)
@@ -92,6 +93,24 @@ public:
             q=find_parent_help(p->right,parent_data);
         return q;
     }
+
+    void pre_order_nonrecursive(node<T> *p)//non-recursive method to show in preorder
+    {
+        stack<node<T> *> s;
+        if(p!=NULL) {
+            s.push(p);
+            while (!s.empty()) {
+                p=s.top();
+                s.pop();
+                cout << p->data << "--";
+                if (p->right != NULL)
+                    s.push(p->right);
+                if (p->left != NULL)
+                    s.push(p->left);
+            }
+        }
+    }
+
 };
 
 int main() {
@@ -102,7 +121,9 @@ int main() {
     t.insert(103,100,1);
     t.insert(104,101,0);
     t.insert(105,101,1);
-    //t.insert(106,102,0);
+    t.insert(106,102,0);
+    t.pre_order_nonrecursive(t.get_root());
+    cout<<endl;
     t.pre_order_recursive(t.get_root());
     return 0;
 }
