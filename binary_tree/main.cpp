@@ -137,33 +137,7 @@ public:
 
         }
     }
-    /*
-    void post_order_nonrecursive(node<T> *p){
-        stack<node<T> *> s;
-        while(p!=NULL){
-            while(p!=NULL){
-                s.push(p);
-                if(p->right!=NULL)
-                    s.push(p->right);
-                p=p->left;
-            }
-            cout<<s.top()->data<<"--";
-            s.pop();
-            p=s.top();
-            while(!s.empty()&&p->right==NULL){
-                cout<<p->data<<"--";
-                s.pop();
-                p=s.top();
-            }
-            if(!s.empty()) {
-                p = s.top();
-                s.pop();
-            }
-            else
-                p=NULL;
-        }
-    }
-     */
+    
     void post_order_nonrecursive(node<T> *p) {
         stack<node<T> *> s;
         node<T> *q = root;
@@ -231,6 +205,11 @@ public:
                 }
             }
         }
+    }
+
+
+    void Morris_postorder(){
+
     }
 
 
