@@ -183,6 +183,32 @@ public:
         }
     }
 
+    void Morris_inorder(){
+        node<T> *p=root,*tmp;
+        while(p!=NULL){
+            if(p->left==NULL){
+                cout<<p->data<<"--";
+                p=p->right;
+            }
+            else{
+                tmp=p->left;                          //find from left
+                while(tmp->right!=NULL&&tmp->right!=p) //find the rightmost tree in its left descendant
+                    tmp=tmp->right;
+                if(tmp->right==NULL){               //make the node the rightmost node in its descendant
+                    tmp->right=p;
+                    p=p->left;
+                }
+                else                                  //reestablish the tree
+                {
+                    cout<<p->data<<"--";
+                    tmp->right=NULL;
+                    p=p->right;
+                }
+            }
+        }
+    }
+
+
 };
 
 int main() {
@@ -205,5 +231,7 @@ int main() {
     t.post_order_recursive(t.get_root());
     cout<<endl;
     t.post_order_nonrecursive(t.get_root());
+    cout<<endl<<"MORRIS_INORDER"<<endl;
+    t.Morris_inorder();
     return 0;
 }
