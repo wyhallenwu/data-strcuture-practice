@@ -208,6 +208,31 @@ public:
         }
     }
 
+    void Morris_preorder(){
+        node<T> *p=root,*tmp;
+        while(p!=NULL){
+            if(p->left==NULL){
+                cout<<p->data<<"--";
+                p=p->right;
+            }
+            else{
+                tmp=p->left;
+                while(tmp->right!=NULL&&tmp->right!=p)
+                    tmp=tmp->right;
+                if(tmp->right==NULL){
+                    tmp->right=p;
+                    cout<<p->data<<"--";
+                    p=p->left;
+                }
+                else
+                {
+                    tmp->right=NULL;
+                    p=p->right;
+                }
+            }
+        }
+    }
+
 
 };
 
@@ -233,5 +258,7 @@ int main() {
     t.post_order_nonrecursive(t.get_root());
     cout<<endl<<"MORRIS_INORDER"<<endl;
     t.Morris_inorder();
+    cout<<endl<<"MORRIS_PREORDER"<<endl;
+    t.Morris_preorder();
     return 0;
 }
