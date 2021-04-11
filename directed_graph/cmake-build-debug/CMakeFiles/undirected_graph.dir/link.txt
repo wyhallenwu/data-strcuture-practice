@@ -1,0 +1,3 @@
+"C:\Program Files\JetBrains\CLion 2020.3\bin\cmake\win\bin\cmake.exe" -E rm -f CMakeFiles\undirected_graph.dir/objects.a
+C:\PROGRA~2\MINGW-~1\mingw32\bin\ar.exe cr CMakeFiles\undirected_graph.dir/objects.a @CMakeFiles\undirected_graph.dir\objects1.rsp
+C:\PROGRA~2\MINGW-~1\mingw32\bin\G__~1.EXE -g   -Wl,--whole-archive CMakeFiles\undirected_graph.dir/objects.a -Wl,--no-whole-archive  -o undirected_graph.exe -Wl,--out-implib,libundirected_graph.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\undirected_graph.dir\linklibs.rsp
