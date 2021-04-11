@@ -3,7 +3,8 @@
 // reachable from s.
 #include<iostream>
 #include <list>
-
+#include <stack>
+#include <vector>
 using namespace std;
 
 // This class represents a directed graph using
@@ -23,6 +24,31 @@ public:
 
     // prints BFS traversal from a given source s
     void BFS(int s);
+
+    void iterative_DFS(int s,vector<bool> &visited) {
+        stack<int> st;
+        st.push(s);
+        while (!st.empty()) {
+            s = st.top();
+            st.pop();
+            if (!visited[s]) {
+                cout << s << "--";
+                visited[s] = true;
+            }
+            for (auto i = adj->begin(); i != adj->end(); i++) {
+                if (!visited[*i])
+                    st.push(*i);
+            }
+
+        }
+    }
+
+    void iterative_all(int s){
+        vector<bool> visited(V, false);
+        for(int i=0;i<V;i++)
+            if(!visited[i])
+                iterative_DFS(i,visited);
+    }
 };
 
 Graph::Graph(int V)
@@ -75,6 +101,7 @@ void Graph::BFS(int s)
     }
 }
 
+
 // Driver program to test methods of graph class
 int main()
 {
@@ -84,12 +111,14 @@ int main()
     g.addEdge(0, 2);
     g.addEdge(1, 2);
     g.addEdge(2, 0);
-    g.addEdge(2, 3);
+    //g.addEdge(2, 3);
     g.addEdge(3, 3);
 
     cout << "Following is Breadth First Traversal "
          << "(starting from vertex 2) \n";
     g.BFS(2);
+    cout<<endl<<"***"<<endl;
+    g.iterative_all(2);
 
     return 0;
 }
