@@ -80,6 +80,9 @@
 				</MakeCommands>
 			</Target>
 		</Build>
+		<Unit filename="C:/Users/wuliwyh/Desktop/github/data-structure-practice/graph_adjacency_matrix/heapsort.h">
+			<Option target="graph_adjacency_matrix"/>
+		</Unit>
 		<Unit filename="C:/Users/wuliwyh/Desktop/github/data-structure-practice/graph_adjacency_matrix/main.cpp">
 			<Option target="graph_adjacency_matrix"/>
 		</Unit>
