@@ -198,7 +198,7 @@ public:
                 help_v.push_back(val);
             }
         }
-        cout<<"minimum cost tree: "<<endl;
+        cout<<"minimum cost tree: "<<endl<<"Kruskal: "<<endl;
         for(int i=0;i<size-1;i++) {
             cout << help_v[i] << "--";
         }
@@ -269,6 +269,7 @@ public:
             p.remove(list_t);
             count++;
         }
+        cout<<"Prim"<<endl;
         for(int i=0;i<mst.size();i++)
             cout<<mst[i]<<"--";
     }
@@ -298,6 +299,6 @@ int main(){
     cout<<endl;
     m.MST_kruskal();
     cout<<endl;
-    m.Prim(5);
+    m.Prim(2);
     return 0;
 }
