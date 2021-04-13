@@ -218,31 +218,32 @@ public:
     }
 
 //********************************************
-    bool cycle_detect_DFS(T data_)
+    bool cycle_detect_DFS()
     {
         bool *visited=new bool[size];
         for(int i=0;i<size;i++)
             visited[i]=false;
-        int index=find_index(data_);
-        visited[index]=true;
-        bool flag=false;
-        int count=1;
-        DFS_cycle_help(index,visited,flag,count);
-        return flag;
+        for(int i=0;i<size;i++){
+            if(!visited[i])
+                if(DFS_cycle_help(i,visited,-1))
+                    return true;
+        }
+        return false;
     }
 
-    void DFS_cycle_help(int index,bool *&visited,bool &flag,int &count){
-        for(int i=index,j=index+1;j<size;j++){
-            if(visited[j]==true&&count<=size)
-                flag=true;
-            if(adjacency_matrix[index][j]!=0&&visited[j]==false)
+    bool DFS_cycle_help(int index,bool *&visited,int par){
+        visited[index]=true;
+        for(int i=0;i<size;i++){
+            if(visited[i]==false)
             {
-                visited[j]=true;
-                count++;
-                DFS_cycle_help(j,visited,flag,count);
+                if(DFS_cycle_help(i,visited,par))
+                    return true;
             }
-
+            else if(index!=par){
+                return true;
+            }
         }
+        return false;
     }
     //**************************************************************************
 
@@ -300,5 +301,7 @@ int main(){
     m.MST_kruskal();
     cout<<endl;
     m.Prim(2);
+    if(m.cycle_detect_DFS())
+        cout<<endl<<"__";
     return 0;
 }
