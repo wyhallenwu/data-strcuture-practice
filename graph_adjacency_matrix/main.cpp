@@ -3,6 +3,7 @@
 #include <vector>
 #include <queue>
 #include "heapsort.h"
+#include "Prim_help.h"
 using namespace std;
 template <typename T>
 class graph_adjacency_matrix{
@@ -193,7 +194,7 @@ public:
             int r1=0,c1=0;
             weighted_heap.DeleteTop(val);
             find_coordinate(val,r1,c1);
-            if(!cycle_detect(flag,r1,c1)){
+            if(!cycle_detect_for_MST(flag, r1, c1)){
                 help_v.push_back(val);
             }
         }
@@ -203,7 +204,7 @@ public:
         }
     }
 
-    bool cycle_detect(int *&flag,int index1,int index2){
+    bool cycle_detect_for_MST(int *&flag, int index1, int index2){
         if(flag[index1]!=flag[index2])
         {
             for(int i=0;i<size;i++){
@@ -216,6 +217,63 @@ public:
             return true;
     }
 
+//********************************************
+    bool cycle_detect_DFS(T data_)
+    {
+        bool *visited=new bool[size];
+        for(int i=0;i<size;i++)
+            visited[i]=false;
+        int index=find_index(data_);
+        visited[index]=true;
+        bool flag=false;
+        int count=1;
+        DFS_cycle_help(index,visited,flag,count);
+        return flag;
+    }
+
+    void DFS_cycle_help(int index,bool *&visited,bool &flag,int &count){
+        for(int i=index,j=index+1;j<size;j++){
+            if(visited[j]==true&&count<=size)
+                flag=true;
+            if(adjacency_matrix[index][j]!=0&&visited[j]==false)
+            {
+                visited[j]=true;
+                count++;
+                DFS_cycle_help(j,visited,flag,count);
+            }
+
+        }
+    }
+    //**************************************************************************
+
+    void Prim(T data_){
+        int index=find_index(data_);
+        int *dsu=new int[size];
+        for(int i=0;i<size;i++)
+            dsu[i]=0;
+        dsu[index]=1;
+        int count=1,low_t,list_t;
+        double low=INT_MAX;
+        vector<double> mst;
+        Prim_list p(max_size*(max_size-1)/2);
+        while(count<size){
+            for(int i=index,j=0;j<size;j++){
+                if(dsu[j]==0&&adjacency_matrix[index][j]!=0) {
+                    p.insert(adjacency_matrix[index][j],j);
+                }
+            }
+            p.find_min(low,low_t,list_t);
+            mst.push_back(low);
+            dsu[low_t]=1;
+            index=low_t;
+            p.remove(list_t);
+            count++;
+        }
+        for(int i=0;i<mst.size();i++)
+            cout<<mst[i]<<"--";
+    }
+
+
 };
 
 int main(){
@@ -223,7 +281,7 @@ int main(){
     graph_adjacency_matrix<int > m(data,7,10);
     m.change_relation(1,2,10.1);
     m.change_relation(2,5,5);
-    m.change_relation(2,3,11.2);
+    m.change_relation(2,3,11);
     m.change_relation(4,3,0.5);
     m.change_relation(4,5,6);
     m.change_relation(7,5,19);
@@ -239,5 +297,7 @@ int main(){
     m.BFT(2);
     cout<<endl;
     m.MST_kruskal();
+    cout<<endl;
+    m.Prim(5);
     return 0;
 }

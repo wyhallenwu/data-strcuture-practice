@@ -6,6 +6,8 @@
 
 #IncludeRegexTransform: 
 
+C:/Users/wuliwyh/Desktop/github/data-structure-practice/graph_adjacency_matrix/Prim_help.h
+
 C:/Users/wuliwyh/Desktop/github/data-structure-practice/graph_adjacency_matrix/heapsort.h
 iostream
 -
@@ -21,4 +23,6 @@ queue
 -
 heapsort.h
 C:/Users/wuliwyh/Desktop/github/data-structure-practice/graph_adjacency_matrix/heapsort.h
+Prim_help.h
+C:/Users/wuliwyh/Desktop/github/data-structure-practice/graph_adjacency_matrix/Prim_help.h
 

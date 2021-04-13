@@ -3,4 +3,4 @@ project(graph_adjacency_matrix)
 
 set(CMAKE_CXX_STANDARD 14)
 
-add_executable(graph_adjacency_matrix main.cpp heapsort.h )
+add_executable(graph_adjacency_matrix main.cpp heapsort.h Prim_help.h)
