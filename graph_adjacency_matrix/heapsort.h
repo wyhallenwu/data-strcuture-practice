@@ -97,8 +97,8 @@ void MinHeap<ElemType>::Insert(const ElemType &e)
     CurrentSize++;
 }
 
-template<class ElemType>
-void MinHeap<ElemType>::DeleteTop(ElemType &e)
+template<class T>
+void MinHeap<T>::DeleteTop(T &e)
 {
     if(IsEmpty())
         return ;
