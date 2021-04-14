@@ -1,12 +1,48 @@
 
 #include<iostream>
 #include <vector>
+#include <queue>
 using namespace std;
+
+struct edge{
+    int index1;
+    int index2;
+    double weighted;
+    edge(){}
+    edge(int index1_,int index2_,double weighted_){
+        index1=index1_;
+        index2=index2_;
+        weighted=weighted_;
+    }
+};
+
+template <typename T>
+struct triple_{
+    int index;
+    T value;
+    double weight;
+    triple_(){}
+    triple_(int index_, T value_,double weight_){
+        index=index_;
+        value=value_;
+        weight=weight_;
+    }
+    triple_(int index_, T value_){
+        index=index_;
+        value=value_;
+    }
+
+    friend ostream &operator<<(ostream &os, const triple_ &triple) {
+        os << "index: " << triple.index << " value: " << triple.value << " weight: " << triple.weight;
+        return os;
+    }
+
+};
 
 template <typename T>
 struct node{
     T data;
-    vector<T> relation;
+    vector<triple_<T>> relation;
     node(){}
     node(T data_){
         data=data_;
@@ -39,10 +75,13 @@ public:
                 return i;
     }
 
-    void change_relation(T data1,T data2){
+    void change_relation(T data1,T data2,double weight_){
         int index1=find_index(data1);
         int index2=find_index(data2);
-        graph_list[index1].relation.push_back(graph_list[index2].data);
+        triple_<T> p2(index2, data2,weight_);
+        triple_<T> p1(index1, data1,weight_);
+        graph_list[index1].relation.push_back(p2);
+        graph_list[index2].relation.push_back(p1);
     }
 
     void show(){
@@ -50,10 +89,58 @@ public:
         {
             cout<<"data:  "<<graph_list[i].data<<endl;
             for(int j=0;j<graph_list[i].relation.size();j++){
-                cout<<graph_list[i].relation[j]<<"---";
+                cout<<graph_list[i].relation[j].value<<"("<<graph_list[i].relation[j].weight<<")"<<"---";
             }
             cout<<endl;
         }
+    }
+
+    void DFS(T data_){
+        bool *visited=new bool [size];
+        for(int i=0;i<size;i++)
+            visited[i]=false;
+        int index=find_index(data_);
+        DFS_help(index,visited);
+    }
+
+    void DFS_help(int index,bool *&visited){
+        for(int i=index,j=0;j<graph_list[i].relation.size();j++){
+            if(visited[graph_list[i].relation[j].index]!=true)
+            {
+                cout<<graph_list[i].relation[j].value<<"--";
+                visited[graph_list[i].relation[j].index]=true;
+                DFS_help(j,visited);
+            }
+        }
+    }
+
+    void BFS(T data_){
+        int index=find_index(data_);
+        bool *visited=new bool[size];
+        for(int i=0;i<size;i++)
+            visited[i]=false;
+        visited[index]=true;
+        queue<int> q;
+        q.push(index);
+        while(!q.empty()){
+            for(int i=index,j=0;j<graph_list[i].relation.size();j++)
+            {
+                if(visited[graph_list[i].relation[j].index]==false){
+                    q.push(graph_list[i].relation[j].index);
+                    visited[graph_list[i].relation[j].index]=true;
+                }
+            }
+            cout<<graph_list[q.front()].data<<"--";
+            q.pop();
+            if(!q.empty())
+                index=q.front();
+        }
+    }
+
+
+    void Kruskal(){
+        vector<double> weighted;
+
     }
 
 };
@@ -61,13 +148,16 @@ public:
 int main(){
     int a[6]={1,2,3,4,5,6};
     graph_adjacency_list<int> l(a,6,10);
-    l.change_relation(1,2);
-    l.change_relation(2,1);
-    l.change_relation(1,3);
-    l.change_relation(1,4);
-    l.change_relation(2,4);
-    l.change_relation(4,5);
-    l.change_relation(5,6);
-    l.change_relation(6,1);
+    l.change_relation(1,2,10.2);
+    l.change_relation(1,3,4.5);
+    l.change_relation(1,4,6.4);
+    l.change_relation(2,4,3.8);
+    l.change_relation(4,5,14);
+    l.change_relation(5,6,9.6);
+    l.change_relation(6,1,7.2);
     l.show();
+    cout<<"DFS"<<endl;
+    l.DFS(3);
+    cout<<endl<<"BFS"<<endl;
+    l.BFS(3);
 }
