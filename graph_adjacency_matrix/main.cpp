@@ -1,3 +1,5 @@
+// non-directed graph
+
 #include <iostream>
 #include <iomanip>
 #include <vector>
@@ -275,7 +277,47 @@ public:
             cout<<mst[i]<<"--";
     }
 
+    void Dijsktra(T data_) // non-directed graph all-to-all shortest path
+    {
+        bool *sptSet = new bool[size];
+        double *distance = new double[size];
+        for(int i=0;i<size;i++){
+            sptSet[i]=false;
+            distance[i]=INT_MAX;
+        }
+        int index = find_index(data_);
+        int count = 0;
+        distance[index] = 0;
+        while(count<size)
+        {
+            int re_index = find_min_distance_Dij(sptSet, distance);
+            sptSet[re_index] = true;
+            for(int j = 0; j < size;j++)
+            {
+                if(adjacency_matrix[re_index][j]!=0&&sptSet[j]==false)
+                {
+                    double tmp = distance[re_index] + adjacency_matrix[re_index][j];
+                    if(tmp < distance[j])
+                        distance[j] = tmp;
+                }
+            }
+            count++;
+        }
+        for(int i=0;i<size;i++)
+            cout<<distance[i]<<"--";
+    }
 
+    int find_min_distance_Dij(bool *&spt, double *&distance){
+        int min_dis = INT_MAX, min_index;
+        for(int i = 0;i < size;i++)
+        {
+            if(distance[i] < min_dis&&spt[i]== false){
+                min_dis = distance[i];
+                min_index = i;
+            }
+        }
+        return min_index;
+    }
 };
 
 int main(){
@@ -285,7 +327,7 @@ int main(){
     m.change_relation(2,5,5);
     m.change_relation(2,3,11);
     m.change_relation(4,3,0.5);
-    m.change_relation(4,5,6);
+    m.change_relation(4,5,4.5);
     m.change_relation(7,5,19);
     m.change_relation(7,3,7.4);
     m.change_relation(6,7,6.2);
@@ -301,7 +343,7 @@ int main(){
     m.MST_kruskal();
     cout<<endl;
     m.Prim(2);
-    if(m.cycle_detect_DFS())
-        cout<<endl<<"__";
+    cout<<endl;
+    m.Dijsktra(2);
     return 0;
 }
