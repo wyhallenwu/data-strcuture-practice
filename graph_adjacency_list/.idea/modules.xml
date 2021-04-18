@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/graph_adjacency_matrix.iml" filepath="$PROJECT_DIR$/.idea/graph_adjacency_matrix.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/graph_adjacency_list.iml" filepath="$PROJECT_DIR$/.idea/graph_adjacency_list.iml" />
     </modules>
   </component>
 </project>
