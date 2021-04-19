@@ -318,6 +318,7 @@ public:
         }
         return min_index;
     }
+
 };
 
 int main(){
@@ -343,7 +344,7 @@ int main(){
     m.MST_kruskal();
     cout<<endl;
     m.Prim(2);
-    cout<<endl;
+    cout<<endl<<"Dij:"<<endl;
     m.Dijsktra(2);
     return 0;
 }
