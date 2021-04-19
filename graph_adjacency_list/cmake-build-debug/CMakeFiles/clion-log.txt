@@ -1,4 +1,4 @@
-C:\Users\wuliwyh\AppData\Local\JetBrains\Toolbox\apps\CLion\ch-0\203.7148.70\bin\cmake\win\bin\cmake.exe -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - MinGW Makefiles" C:\Users\wuliwyh\Desktop\github\data-structure-practice\graph_adjacency_list
+"C:\Program Files\JetBrains\CLion 2020.3\bin\cmake\win\bin\cmake.exe" -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - MinGW Makefiles" C:\Users\wuliwyh\Desktop\github\data-structure-practice\graph_adjacency_list
 -- Configuring done
 -- Generating done
 -- Build files have been written to: C:/Users/wuliwyh/Desktop/github/data-structure-practice/graph_adjacency_list/cmake-build-debug

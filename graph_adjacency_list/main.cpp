@@ -20,6 +20,12 @@ struct triple_{
         value=value_;
     }
 
+    void set_data(int index_,T value_,double weight_){
+        index=index_;
+        value=value_;
+        weight=weight_;
+    }
+
     friend ostream &operator<<(ostream &os, const triple_ &triple) {
         os << "index: " << triple.index << " value: " << triple.value << " weight: " << triple.weight;
         return os;
@@ -151,7 +157,10 @@ public:
             count++;
         }
         for(int i=0;i<size;i++)
-            cout<<distance[i]<<"--";
+            if(distance[i]==INT_MAX)
+                cout<<"MAX"<<"--";
+            else
+                cout<<distance[i]<<"--";
     }
 
     int find_min_index_Dij(bool *&spt,double *&distance){
@@ -165,10 +174,109 @@ public:
         return min_index;
     }
 
+/*
 
+    void BellmanFord(T data_)
+    {
+        double *distance=new double [size];
+        int *path=new int[size];
+        for(int i=0;i<size;i++) {
+            distance[i] = INT_MAX;
+            path[i]=-1;
+        }
+        int index=find_index(data_);
+        int edge_num=edges_count();
+        distance[index]=0;
+        //***********
+        triple_<double> *edge=new triple_<double>[edge_num];
+        for (int i = 0; i < size; i++) {
+            for (int j = 0; j < graph_list[i].relation.size(); j++) {
+                if(i==0)
+                {
+                    edge[j].set_data(graph_list[i].relation[j].index,graph_list[i].relation[j].value,graph_list[i].relation[j].weight);
+                }
+            }
+        }
+        //^^^^^^^^^
+        for(int i=0;i<graph_list[index].relation.size();i++)
+        {
+            distance[graph_list[index].relation[i].index]=graph_list[index].relation[i].weight;
+        }
+        for(int count=1;count<size-1;count++)
+        {
+            for(int i=0;i<size;i++)
+            {
+                for(int j=0;j<graph_list[i].relation.size();j++)
+                {
+                    if(distance[graph_list[i].relation[j].index]>distance[graph_list[i].relation[j].index]+distance[i])
+                        distance[graph_list[i].relation[j].index]=distance[graph_list[i].relation[j].index]+distance[i];
+                }
+            }
+        }
+
+        for(int i=0;i<size;i++)
+        {
+            cout<<distance[i]<<"--";
+        }
+    }
+
+    */
+
+    int edges_count(){
+        int count=0;
+        for(int i=0;i<size;i++){
+            count+=graph_list[i].relation.size();
+        }
+        return count;
+    }
+
+    //topological1
+    void topological_sort(){
+        int *zero_deg=new int[size];
+        bool *visited=new bool[size];
+        for(int i=0;i<size;i++) {
+            visited[i]=false;
+        }
+        int count=0;
+        while(count<size) {
+            for(int i=0;i<size;i++)
+                zero_deg[i]=0;
+            zero_in_point(zero_deg,count,visited);
+        }
+    }
+
+    void zero_in_point(int *&src,int &count,bool *&visited){
+        for(int i=0;i<size;i++)
+        {
+            for(int j=0;j<graph_list[i].relation.size();j++)
+            {
+                src[graph_list[i].relation[j].index]++;
+            }
+        }
+        for(int i=0;i<size;i++)
+        {
+            if(src[i]==0&&visited[i]==false)
+            {
+                cout<<i<<"--";
+                count++;
+                graph_list[i].relation.clear();
+                visited[i]=true;
+            }
+        }
+    }
+
+
+    //topological1 ^
+
+
+    //topological2
+    void topological(){
+
+    }
 };
 
-int main(){
+
+void test1(){
     int a[6]={1,2,3,4,5,6};
     graph_adjacency_list<int> l(a,6,10);
     l.change_relation(1,2,10.2);
@@ -176,8 +284,8 @@ int main(){
     l.change_relation(1,4,6.4);
     l.change_relation(2,4,3.6);
     l.change_relation(4,5,14);
-    l.change_relation(5,6,9.6);
-    l.change_relation(6,1,7.2);
+    l.change_relation(6,5,9.6);
+    l.change_relation(6,3,7.2);
     l.show();
     cout<<"DFS"<<endl;
     l.DFS(6);
@@ -185,4 +293,28 @@ int main(){
     l.BFS(4);
     cout<<endl<<"Dij shortest path: "<<endl;
     l.Dijkstra(1);
+    cout<<endl;
+    l.topological_sort();
+}
+
+void test2(){
+    int a[6]={0,1,2,3,4,5};
+    graph_adjacency_list<int> l(a,6,10);
+    l.change_relation(1,0,1);
+    l.change_relation(1,4,1);
+    l.change_relation(0,2,1);
+    l.change_relation(0,3,1);
+    l.change_relation(2,3,1);
+    l.change_relation(4,0,1);
+    l.change_relation(5,2,1);
+    l.change_relation(5,3,1);
+    l.change_relation(5,4,1);
+    l.show();
+    cout<<endl;
+    l.topological_sort();
+}
+int main(){
+    test2();
+    return 0;
+
 }
