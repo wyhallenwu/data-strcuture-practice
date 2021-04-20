@@ -456,7 +456,7 @@ void test1(){
     l.BFS(4);
     cout<<endl<<"Dij shortest path: "<<endl;
     l.Dijkstra(1);
-    cout<<endl;
+    cout<<endl<<"topological sort:"<<endl;
     l.topological_sort();
 }
 
@@ -473,7 +473,7 @@ void test2(){
     l.change_relation(5,3,1);
     l.change_relation(5,4,1);
     l.show();
-    cout<<endl;
+    cout<<endl<<"topological sort all possible outcomes:"<<endl;
     l.topological_all();
 }
 
@@ -495,7 +495,6 @@ void test3(){
     l.longest_path();
 }
 int main(){
-    test3();
+    test1();
     return 0;
-
 }
