@@ -2,6 +2,7 @@
 #include<iostream>
 #include <vector>
 #include <queue>
+#include <stack>
 using namespace std;
 
 template <typename T>
@@ -9,7 +10,7 @@ struct triple_{
     int index;
     T value;
     double weight;
-    triple_(){}
+        triple_(){}
     triple_(int index_, T value_,double weight_){
         index=index_;
         value=value_;
@@ -243,6 +244,8 @@ public:
                 zero_deg[i]=0;
             zero_in_point(zero_deg,count,visited);
         }
+        delete []zero_deg;
+        delete []visited;
     }
 
     void zero_in_point(int *&src,int &count,bool *&visited){
@@ -269,10 +272,170 @@ public:
     //topological1 ^
 
 
-    //topological2
-    void topological(){
+    //topological all possible results
+    void topological_all(){
+        int edge_num=edges_count();
+        int degree[size];
+        for(int i=0;i<size;i++)
+            degree[i]=0;
+        vector<int> result;
+        bool *visited=new bool [edge_num];
+        for(int i=0;i<edge_num;i++)
+            visited[i]=false;
+        for(int i=0;i<size;i++)
+        {
+            for(int j=0;j<graph_list[i].relation.size();j++)
+            {
+                degree[graph_list[i].relation[j].index]++;
+            }
+        }
+        topological_all_help(result,visited,edge_num,degree);
+        delete []visited;
+    }
+
+    void topological_all_help(vector<int> &res, bool *&visited, int &edge_num, int *degree)
+    {
+        bool flag= false;
+        for(int i=0; i < edge_num; i++)
+        {
+            if(degree[i]==0&&visited[i]==false)
+            {
+                for(int j=0;j<graph_list[i].relation.size();j++)
+                {
+                    degree[graph_list[i].relation[j].index]--;
+                }
+                res.push_back(i);
+                visited[i]=true;
+                topological_all_help(res, visited, edge_num, degree);
+                visited[i]=false;
+                res.erase(res.end()-1);
+                for(int k=0;k<graph_list[i].relation.size();k++)
+                {
+                    degree[graph_list[i].relation[k].index]++;
+                }
+                flag= true;
+            }
+        }
+        if(!flag)
+        {
+            for(int i=0;i<res.size();i++)
+                cout<<res[i]<<"--";
+            cout<<endl;
+        }
+    }
+
+    //topological sort all possible outcomes ^^^^^^^^^
+
+    //longest path for AOE
+    void longest_path(){
+        int source_index=find_the_source();
+        int edge=edges_count();
+        int *distance=new int[size];
+        stack<int> s;
+        bool *visited=new bool [size];
+        for(int i=0;i<size;i++) {
+            visited[i] = false;
+            distance[i] = -1;
+        }
+        for(int i=0;i<size;i++)
+        {
+            if(visited[i]==false)
+                longest_path_help(i,visited,s);
+        }
+        distance[source_index]=0;
+        while(s.empty()==false)
+        {
+            int u=s.top();
+            s.pop();
+            if(distance[u]!=-1)
+            {
+                for(int i=0;i<graph_list[u].relation.size();i++)
+                {
+                    if(distance[graph_list[u].relation[i].index]<graph_list[u].relation[i].weight+distance[u])
+                        distance[graph_list[u].relation[i].index]=graph_list[u].relation[i].weight+distance[u];
+                }
+            }
+        }
+        for(int i=0;i<size;i++)
+        {
+            if(distance[i]!=-1)
+                cout<<distance[i]<<"--";
+            else
+                cout<<"-1--";
+        }
+        cout<<endl;
+        delete []visited;
+        //
+        double *e=new double[edge];
+        int *start=new int[edge];
+        int *end=new int[edge];
+        int count=0;
+        for(int i=0;i<size;i++)
+        {
+            for(int j=0;j<graph_list[i].relation.size();j++)
+            {
+                e[count]=graph_list[i].relation[j].weight;
+                start[count]=i;
+                end[count]=graph_list[i].relation[j].index;
+                count++;
+            }
+        }
+        for(int i=0;i<edge;i++)
+            cout<<e[i]<<"--";
+        cout<<endl;
+        //earliset start time of arcs
+        double *ek=new double [edge];
+        for(int i=0;i<edge;i++)
+        {
+            ek[i]=distance[start[i]];
+            cout<<ek[i]<<"--";
+        }
+        cout<<endl;
+        //latest start time of arcs
+        double *lk=new double [edge];
+        for(int i=0;i<edge;i++)
+        {
+            lk[i]=distance[end[i]]-e[i];
+            cout<<lk[i]<<"--";
+        }
+        //essential path
+        cout<<endl;
+        for(int i=0;i<edge;i++)
+        {
+            if(lk[i]==ek[i])
+                cout<<"start: "<<start[i]<<"  end: "<<end[i]<<"  weight: "<<e[i]<<endl;
+        }
 
     }
+
+    void longest_path_help(int index,bool *&visited,stack<int> &s){
+        visited[index]= true;
+        for(int i=0;i<graph_list[index].relation.size();i++)
+        {
+            if(!visited[graph_list[index].relation[i].index])
+                longest_path_help(graph_list[index].relation[i].index,visited,s);
+        }
+        s.push(index);
+    }
+
+    int find_the_source()
+    {
+        int degree[size];
+        for(int i=0;i<size;i++)
+            degree[i]=0;
+        for(int i=0;i<size;i++)
+        {
+            for(int j=0;j<graph_list[i].relation.size();j++)
+            {
+                degree[graph_list[i].relation[j].index]++;
+            }
+        }
+        for(int i=0;i<size;i++)
+            if(degree[i]==0)
+                return i;
+    }
+
+    //longest path for AOE ^^^^^^^^^^^^^^^^^^^
 };
 
 
@@ -311,10 +474,28 @@ void test2(){
     l.change_relation(5,4,1);
     l.show();
     cout<<endl;
-    l.topological_sort();
+    l.topological_all();
+}
+
+void test3(){
+    int a[7]={0,1,2,3,4,5,6};
+    graph_adjacency_list<int> l(a,7,10);
+    l.change_relation(0,1,8);
+    l.change_relation(0,3,4);
+    l.change_relation(0,4,5);
+    l.change_relation(1,2,3);
+    l.change_relation(2,6,6);
+    l.change_relation(3,4,1);
+    l.change_relation(4,1,2);
+    l.change_relation(4,2,7);
+    l.change_relation(4,5,2);
+    l.change_relation(5,2,3);
+    l.change_relation(5,6,9);
+    l.show();
+    l.longest_path();
 }
 int main(){
-    test2();
+    test3();
     return 0;
 
 }

@@ -6,6 +6,7 @@
 #include <queue>
 #include "heapsort.h"
 #include "Prim_help.h"
+#include "maxheapsort.h"
 using namespace std;
 template <typename T>
 class graph_adjacency_matrix{
@@ -319,6 +320,76 @@ public:
         return min_index;
     }
 
+    //Dijskral^^^^^^^^^^^
+
+    //cycle destruction method of min-spanning tree
+    void destruct_min_spanning_tree(){
+        vector<double> tmp_edge;
+        for(int i=0;i<size;i++)
+        {
+            for(int j=i;j<size;j++)
+            {
+                if(adjacency_matrix[i][j]!=0)
+                    tmp_edge.push_back(adjacency_matrix[i][j]);
+            }
+        }
+        int edge_num=tmp_edge.size();
+        double *edge=new double[edge_num];
+        for(int i=0;i<edge_num;i++)
+            edge[i]=tmp_edge[i];
+        //
+        MaxHeap<double> maxheap(edge,(max_size-1)*(max_size-1)/2,edge_num);
+        while(edge_num>size-1)
+        {
+            bool *visited=new bool[size];
+            for(int i=0;i<size;i++)
+                visited[i]=false;
+            double del_weight;
+            maxheap.DeleteTop(del_weight);
+            del_edge_help(del_weight);
+            if(isDisconnect(visited))
+                maxheap.Insert(del_weight);
+            else {
+                edge_num--;
+            }
+        }
+        maxheap.show();
+    }
+
+    void del_edge_help(double weight_)
+    {
+        for(int i=0;i<size;i++)
+        {
+            for(int j=0;j<size;j++) {
+                if (adjacency_matrix[i][j] == weight_) {
+                    adjacency_matrix[i][j] = 0;
+                    adjacency_matrix[j][i] = 0;
+                    return;
+                }
+            }
+        }
+    }
+
+    bool isDisconnect(bool *&visited){
+        DFS_for_disconnect_detect(0,visited);
+        for(int i=0;i<size;i++)
+        {
+            if(visited[i]==false)
+                return true;
+        }
+        return false;
+    }
+
+    void DFS_for_disconnect_detect(int index,bool *&visited){
+        visited[index]=true;
+        for(int i=0;i<size;i++)
+        {
+            if(adjacency_matrix[index][i]!=0&&visited[i]==false)
+                DFS_for_disconnect_detect(i,visited);
+        }
+    }
+    //
+
 };
 
 int main(){
@@ -346,5 +417,7 @@ int main(){
     m.Prim(2);
     cout<<endl<<"Dij:"<<endl;
     m.Dijsktra(2);
+    cout<<endl<<"delete edge method:  "<<endl;
+    m.destruct_min_spanning_tree();
     return 0;
 }

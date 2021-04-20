@@ -4,4 +4,5 @@
 CMakeFiles/graph_adjacency_matrix.dir/main.cpp.obj: ../Prim_help.h
 CMakeFiles/graph_adjacency_matrix.dir/main.cpp.obj: ../heapsort.h
 CMakeFiles/graph_adjacency_matrix.dir/main.cpp.obj: ../main.cpp
+CMakeFiles/graph_adjacency_matrix.dir/main.cpp.obj: ../maxheapsort.h
 
