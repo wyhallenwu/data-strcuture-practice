@@ -278,7 +278,7 @@ public:
             cout<<mst[i]<<"--";
     }
 
-    void Dijsktra(T data_) // non-directed graph all-to-all shortest path
+    void Dijsktra(T data_) // non-directed graph shortest path
     {
         bool *sptSet = new bool[size];
         double *distance = new double[size];
@@ -391,10 +391,9 @@ public:
     //
 
 };
-
-int main(){
+void test1(){
     int data[7]={1,2,3,4,5,6,7};
-    graph_adjacency_matrix<int > m(data,7,10);
+    graph_adjacency_matrix<int> m(data,7,10);
     m.change_relation(1,2,10.1);
     m.change_relation(2,5,5);
     m.change_relation(2,3,11);
@@ -419,5 +418,10 @@ int main(){
     m.Dijsktra(2);
     cout<<endl<<"delete edge method:  "<<endl;
     m.destruct_min_spanning_tree();
+}
+
+int main(){
+    test1();
+
     return 0;
 }

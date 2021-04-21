@@ -438,7 +438,7 @@ public:
     //longest path for AOE ^^^^^^^^^^^^^^^^^^^
 };
 
-
+//exer 7
 void test1(){
     int a[6]={1,2,3,4,5,6};
     graph_adjacency_list<int> l(a,6,10);
@@ -459,7 +459,7 @@ void test1(){
     cout<<endl<<"topological sort:"<<endl;
     l.topological_sort();
 }
-
+//exer 7
 void test2(){
     int a[6]={0,1,2,3,4,5};
     graph_adjacency_list<int> l(a,6,10);
@@ -476,7 +476,7 @@ void test2(){
     cout<<endl<<"topological sort all possible outcomes:"<<endl;
     l.topological_all();
 }
-
+//exer 9
 void test3(){
     int a[7]={0,1,2,3,4,5,6};
     graph_adjacency_list<int> l(a,7,10);
@@ -494,7 +494,25 @@ void test3(){
     l.show();
     l.longest_path();
 }
+//exer 4
+void test4()
+{
+    int a[6]={0,1,2,3,4,5};
+    graph_adjacency_list<int> l(a,6,10);
+    l.change_relation(0,1,45);
+    l.change_relation(0,2,50);
+    l.change_relation(0,3,15);
+    l.change_relation(1,2,5);
+    l.change_relation(1,5,15);
+    l.change_relation(1,4,20);
+    l.change_relation(3,0,10);
+    l.change_relation(3,1,10);
+    l.change_relation(3,4,79);
+    l.change_relation(4,1,30);
+    l.change_relation(5,4,20);
+    l.Dijkstra(0);
+}
 int main(){
-    test1();
+    test3();
     return 0;
 }
