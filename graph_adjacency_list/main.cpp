@@ -3,6 +3,7 @@
 #include <vector>
 #include <queue>
 #include <stack>
+#include "edge_set.h"
 using namespace std;
 
 template <typename T>
@@ -235,9 +236,8 @@ public:
     void topological_sort(){
         int *zero_deg=new int[size];
         bool *visited=new bool[size];
-        for(int i=0;i<size;i++) {
+        for(int i=0;i<size;i++)
             visited[i]=false;
-        }
         int count=0;
         while(count<size) {
             for(int i=0;i<size;i++)
@@ -252,9 +252,7 @@ public:
         for(int i=0;i<size;i++)
         {
             for(int j=0;j<graph_list[i].relation.size();j++)
-            {
                 src[graph_list[i].relation[j].index]++;
-            }
         }
         for(int i=0;i<size;i++)
         {
@@ -274,48 +272,43 @@ public:
 
     //topological all possible results
     void topological_all(){
-        int edge_num=edges_count();
         int degree[size];
         for(int i=0;i<size;i++)
             degree[i]=0;
         vector<int> result;
-        bool *visited=new bool [edge_num];
-        for(int i=0;i<edge_num;i++)
+        bool *visited=new bool [size];
+        for(int i=0;i<size;i++)
             visited[i]=false;
         for(int i=0;i<size;i++)
         {
             for(int j=0;j<graph_list[i].relation.size();j++)
-            {
                 degree[graph_list[i].relation[j].index]++;
-            }
         }
-        topological_all_help(result,visited,edge_num,degree);
+        topological_all_help(result,visited,degree);
         delete []visited;
     }
 
-    void topological_all_help(vector<int> &res, bool *&visited, int &edge_num, int *degree)
+    void topological_all_help(vector<int> &res, bool *&visited, int *degree)
     {
         bool flag= false;
-        for(int i=0; i < edge_num; i++)
+        for(int i=0; i < size; i++)
         {
             if(degree[i]==0&&visited[i]==false)
             {
                 for(int j=0;j<graph_list[i].relation.size();j++)
-                {
                     degree[graph_list[i].relation[j].index]--;
-                }
                 res.push_back(i);
                 visited[i]=true;
-                topological_all_help(res, visited, edge_num, degree);
+                topological_all_help(res, visited, degree);
+                //reset the visited indicator  and backtracking
                 visited[i]=false;
                 res.erase(res.end()-1);
                 for(int k=0;k<graph_list[i].relation.size();k++)
-                {
                     degree[graph_list[i].relation[k].index]++;
-                }
                 flag= true;
             }
         }
+        // if all vertices are visited then print the sequence
         if(!flag)
         {
             for(int i=0;i<res.size();i++)
@@ -436,6 +429,42 @@ public:
     }
 
     //longest path for AOE ^^^^^^^^^^^^^^^^^^^
+
+    //Bellman Ford algorithm to find shortest path
+    void Bellman_Ford(T data_){
+        bool *visited = new bool[size];
+        double *distance = new double [size];
+        for(int i=0;i<size;i++){
+            visited[i]=false;
+            distance[i]=INT_MAX;
+        }
+        int source_index=find_index(data_);
+        distance[source_index]=0;
+        int count=1;
+        vector<edge> edge_vec;
+        for(int i=0;i<size;i++)
+        {
+            edge e(i,graph_list[source_index].relation[i].index,graph_list[source_index].relation[i].weight);
+            edge_vec.push_back(e);
+        }
+        //first initialize
+        for(int i=0;i<edge_vec.size();i++)
+        {
+            if(source_index==edge_vec[i].src)
+                distance[edge_vec[i].end]=edge_vec[i].weight;
+        }
+        //
+        while(count<size-1){
+            for(int i=0;i<edge_vec.size();i++)
+            {
+                if(distance[edge_vec[i].end]<distance[edge_vec[i].src]+edge_vec[i].weight)
+                    distance[edge_vec[i].end]=distance[edge_vec[i].src]+edge_vec[i].weight;
+            }
+            count++;
+        }
+        for(int i=0;i<size;i++)
+            cout<<distance[i]<<"--";
+    }
 };
 
 //exer 7
@@ -512,7 +541,24 @@ void test4()
     l.change_relation(5,4,20);
     l.Dijkstra(0);
 }
+
+void test5(){
+    int a[6]={0,1,2,3,4,5};
+    graph_adjacency_list<int> l(a,6,10);
+    l.change_relation(0,1,45);
+    l.change_relation(0,2,50);
+    l.change_relation(0,3,15);
+    l.change_relation(1,2,5);
+    l.change_relation(1,5,15);
+    l.change_relation(1,4,20);
+    l.change_relation(3,0,10);
+    l.change_relation(3,1,10);
+    l.change_relation(3,4,79);
+    l.change_relation(4,1,30);
+    l.change_relation(5,4,20);
+    l.Bellman_Ford(0);
+}
 int main(){
-    test3();
+    test5();
     return 0;
 }

@@ -6,6 +6,10 @@
 
 #IncludeRegexTransform: 
 
+C:/Users/wuliwyh/Desktop/github/data-structure-practice/graph_adjacency_list/edge_set.h
+iostream
+-
+
 C:/Users/wuliwyh/Desktop/github/data-structure-practice/graph_adjacency_list/main.cpp
 iostream
 -
@@ -15,4 +19,6 @@ queue
 -
 stack
 -
+edge_set.h
+C:/Users/wuliwyh/Desktop/github/data-structure-practice/graph_adjacency_list/edge_set.h
 

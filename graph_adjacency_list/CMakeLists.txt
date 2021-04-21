@@ -3,4 +3,4 @@ project(graph_adjacency_list)
 
 set(CMAKE_CXX_STANDARD 14)
 
-add_executable(graph_adjacency_list main.cpp)
+add_executable(graph_adjacency_list main.cpp edge_set.h)
