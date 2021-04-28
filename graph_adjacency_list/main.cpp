@@ -442,9 +442,9 @@ public:
         distance[source_index]=0;
         int count=1;
         vector<edge> edge_vec;
-        for(int i=0;i<size;i++)
+        for(int i=0;i<graph_list[0].relation.size();i++)
         {
-            edge e(i,graph_list[source_index].relation[i].index,graph_list[source_index].relation[i].weight);
+            edge e(0,graph_list[source_index].relation[i].index,graph_list[source_index].relation[i].weight);
             edge_vec.push_back(e);
         }
         //first initialize
@@ -463,7 +463,10 @@ public:
             count++;
         }
         for(int i=0;i<size;i++)
-            cout<<distance[i]<<"--";
+            if(distance[i]==INT_MAX)
+                cout<<"INT_MAX"<<"--";
+            else
+                cout<<distance[i]<<"--";
     }
 };
 
@@ -559,6 +562,6 @@ void test5(){
     l.Bellman_Ford(0);
 }
 int main(){
-    test5();
+    test2();
     return 0;
 }

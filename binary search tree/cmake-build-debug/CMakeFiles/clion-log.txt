@@ -1,4 +1,4 @@
-"C:\Program Files\JetBrains\CLion 2020.3\bin\cmake\win\bin\cmake.exe" -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - MinGW Makefiles" "C:\Users\wuliwyh\Desktop\github\data-structure-practice\binary search tree"
+C:\Users\wuliwyh\AppData\Local\JetBrains\Toolbox\apps\CLion\ch-0\203.7148.70\bin\cmake\win\bin\cmake.exe -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - MinGW Makefiles" "C:\Users\wuliwyh\Desktop\github\data-structure-practice\binary search tree"
 -- The C compiler identification is GNU 8.1.0
 -- The CXX compiler identification is GNU 8.1.0
 -- Check for working C compiler: C:/Program Files (x86)/mingw-w64/mingw32/bin/gcc.exe

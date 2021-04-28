@@ -46,6 +46,9 @@ public:
         }
     }
 
+    void insert(T data_){
+        insert(data_,root);
+    }
     void insert(T data_,node<T> *&p){
         if(p==NULL) {
             p = new node<T> (data_);
@@ -92,7 +95,7 @@ public:
         }
     }
 
-    node<T>* find_node_with_parent(T data_, node<T> *p, node<T> *&parent, int flag){
+    node<T>* find_node_with_parent(T data_, node<T> *p, node<T> *&parent, int &flag){
         if(root!=NULL)
         {
             while(p!=NULL){
@@ -127,11 +130,19 @@ public:
         }
     }
 
-    void del_node(T data_){
-        node<T> *parent;
-        int flag=-1;
-        node<T> *to_del= find_node_with_parent(data_, root, parent, flag);
-        del_node(to_del,parent,flag);
+    void del_node(T data_) {
+        if (root->data == data_) {
+            node<T> *tmp =find_sub_min(root->right);
+            T tmp_data = tmp->data;
+            del_node(tmp->data);
+            root->data = tmp_data;
+        } else {
+            node<T> *parent;
+            int flag = -1;
+            node<T> *to_del = find_node_with_parent(data_, root, parent, flag);
+            if (to_del != NULL)
+                del_node(to_del, parent, flag);
+        }
     }
 
     void del_node(node<T> *&to_del,node<T> *&parent,int flag){
@@ -169,8 +180,10 @@ public:
         }
     }
 
+
     //exer7
-    bool isBST(node<T> *p){
+    bool isBST(node<T> *p)//using queue to judge BST
+    {
         queue<node<T> *> q;
         if(p!=NULL)
             q.push(p);
@@ -192,19 +205,25 @@ public:
     }
 
     //exer8
-    void node_greater(T data_){
-        node<T> *p= find_node(data_,root);
-        show(p->right);
+    void show_greater(node<T> *p, T data_)//modify the inorder show to show downstairs which is bigger than x
+    {
+        if(p!=NULL){
+            show_greater(p->right, data_);
+            if(p->data>=data_)
+                cout<<p->data<<"--";
+            show_greater(p->left, data_);
+        }
     }
 
 };
 int main() {
     int a[7]={4,2,1,3,7,5,8};
     bst<int> b(a,7);
-    b.del_node(7);
+    b.del_node(4);
+    b.insert(4  );
     b.show(b.get_root());
     if(b.isBST(b.get_root()))
         cout<<endl<<"1"<<endl;
-    b.node_greater(3);
+    b.show_greater(b.get_root(), 3);
     return 0;
 }
