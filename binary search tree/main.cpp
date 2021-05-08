@@ -6,14 +6,17 @@ struct node{
     T data;
     node<T> *left;
     node<T> *right;
-    node(){left=NULL;right=NULL;}
+    int left_size;//set to find the kth minimum node
+    node(){left=NULL;right=NULL;left_size=0;}
     node(T data_){
         data=data_;
+        left_size=0;
         left=NULL;
         right=NULL;
     }
     void node_set(node<T> *p){
         data=p->data;
+        left_size=p->left_size;
         left=p->left;
         right-p->right;
     }
@@ -54,8 +57,10 @@ public:
             p = new node<T> (data_);
             return;
         }
-        else if(p->data>data_)
-            insert(data_,p->left);
+        else if(p->data>data_) {
+            p->left_size++;
+            insert(data_, p->left);
+        }
         else if(p->data<data_)
             insert(data_,p->right);
     }
@@ -69,7 +74,7 @@ public:
         if(p!=NULL)
         {
             show(p->left);
-            cout<<p->data<<"--";
+            cout<<p->data<<"--"<<p->left_size<<" ! ";
             show(p->right);
         }
     }
@@ -146,7 +151,7 @@ public:
     }
 
     void del_node(node<T> *&to_del,node<T> *&parent,int flag){
-            //if it is a leaf node
+        //if it is a leaf node
         if(to_del->left==NULL&&to_del->right==NULL) {
             delete to_del;
             to_del = NULL;
@@ -205,13 +210,38 @@ public:
     }
 
     //exer8
-    void show_greater(node<T> *p, T data_)//modify the inorder show to show downstairs which is bigger than x
+    void show_greater(node<T> *p, T data_)//modify the inorder to reverse inorder
     {
         if(p!=NULL){
             show_greater(p->right, data_);
             if(p->data>=data_)
                 cout<<p->data<<"--";
             show_greater(p->left, data_);
+        }
+    }
+
+    //exer9
+    void find_kth_min(int k,node<T> *p){
+        if(k>p->left_size+1) {
+            k=k-p->left_size-1;
+            p = p->right;
+        }
+        while (1) {
+            if (p->left_size <= k)
+                break;
+            p = p->left;
+        }
+        int count=0;
+        search_kth_min(k,p,count);
+    }
+    void search_kth_min(int k,node<T> *p,int &count) {
+        if (p != NULL){
+            if(k<count)
+            search_kth_min(k, p->left, count);
+            count++;
+            if(count==k)
+                cout<<p->data<<"--";
+            search_kth_min(k, p->right, count);
         }
     }
 
@@ -223,7 +253,9 @@ int main() {
     b.insert(4  );
     b.show(b.get_root());
     if(b.isBST(b.get_root()))
-        cout<<endl<<"1"<<endl;
+        cout<<endl<<"YES"<<endl;
     b.show_greater(b.get_root(), 3);
+    cout<<endl;
+    b.find_kth_min(6,b.get_root());
     return 0;
 }
