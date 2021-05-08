@@ -222,6 +222,7 @@ public:
 
     //exer9
     void find_kth_min(int k,node<T> *p){
+        /*
         if(k>p->left_size+1) {
             k=k-p->left_size-1;
             p = p->right;
@@ -231,6 +232,7 @@ public:
                 break;
             p = p->left;
         }
+         */
         int count=0;
         search_kth_min(k,p,count);
     }
@@ -243,6 +245,20 @@ public:
                 cout<<p->data<<"--";
             search_kth_min(k, p->right, count);
         }
+    }
+
+    void find_kth_min_2rd(int k,node<T> *p){
+        if(k>p->left_size+1) {
+            k=k-p->left_size-1;
+            p = p->right;
+        }
+        while (1) {
+            if (p->left_size <= k)
+                break;
+            p = p->left;
+        }
+        int count=0;
+        queue<node<T> *> q;
     }
 
 };
