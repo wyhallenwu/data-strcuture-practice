@@ -241,7 +241,6 @@ public:
 int main() {
     int a[7]={4,2,1,3,7,5,8};
     bst<int> b(a,7);
-    /*
     b.del_node(4);
     b.insert(4  );
     b.show(b.get_root());
@@ -249,7 +248,6 @@ int main() {
         cout<<endl<<"YES"<<endl;
     b.show_greater(b.get_root(), 3);
     cout<<endl;
-     */
     b.find_kth_min(4,b.get_root());
     return 0;
 }
