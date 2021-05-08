@@ -222,49 +222,26 @@ public:
 
     //exer9
     void find_kth_min(int k,node<T> *p){
-        /*
-        if(k>p->left_size+1) {
-            k=k-p->left_size-1;
-            p = p->right;
-        }
-        while (1) {
-            if (p->left_size <= k)
-                break;
-            p = p->left;
-        }
-         */
         int count=0;
         search_kth_min(k,p,count);
     }
     void search_kth_min(int k,node<T> *p,int &count) {
-        if (p != NULL){
-            if(k<count)
-            search_kth_min(k, p->left, count);
-            count++;
-            if(count==k)
-                cout<<p->data<<"--";
-            search_kth_min(k, p->right, count);
+        if (p != NULL) {
+            if (count < k) {
+                search_kth_min(k, p->left, count);
+                count++;
+                if (count == k)
+                    cout << p->data << "--";
+                search_kth_min(k, p->right, count);
+            }
         }
-    }
-
-    void find_kth_min_2rd(int k,node<T> *p){
-        if(k>p->left_size+1) {
-            k=k-p->left_size-1;
-            p = p->right;
-        }
-        while (1) {
-            if (p->left_size <= k)
-                break;
-            p = p->left;
-        }
-        int count=0;
-        queue<node<T> *> q;
     }
 
 };
 int main() {
     int a[7]={4,2,1,3,7,5,8};
     bst<int> b(a,7);
+    /*
     b.del_node(4);
     b.insert(4  );
     b.show(b.get_root());
@@ -272,6 +249,7 @@ int main() {
         cout<<endl<<"YES"<<endl;
     b.show_greater(b.get_root(), 3);
     cout<<endl;
-    b.find_kth_min(6,b.get_root());
+     */
+    b.find_kth_min(4,b.get_root());
     return 0;
 }
