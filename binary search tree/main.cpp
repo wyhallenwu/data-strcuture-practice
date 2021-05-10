@@ -7,16 +7,19 @@ struct node{
     node<T> *left;
     node<T> *right;
     int left_size;//set to find the kth minimum node
-    node(){left=NULL;right=NULL;left_size=0;}
+    int count;//exer10 needed
+    node(){left=NULL;right=NULL;left_size=0;count=0;}
     node(T data_){
         data=data_;
         left_size=0;
+        count=0;
         left=NULL;
         right=NULL;
     }
     void node_set(node<T> *p){
         data=p->data;
         left_size=p->left_size;
+        count=p->count;
         left=p->left;
         right-p->right;
     }
@@ -49,7 +52,7 @@ public:
         }
     }
 
-    void insert(T data_){
+    void insert_construct(T data_){
         insert(data_,root);
     }
     void insert(T data_,node<T> *&p){
@@ -74,7 +77,7 @@ public:
         if(p!=NULL)
         {
             show(p->left);
-            cout<<p->data<<"--"<<p->left_size<<" ! ";
+            cout<<p->data<<"--l_: "<<p->left_size<<" ! ";
             show(p->right);
         }
     }
@@ -148,6 +151,7 @@ public:
             if (to_del != NULL)
                 del_node(to_del, parent, flag);
         }
+        reset_lsize(root);
     }
 
     void del_node(node<T> *&to_del,node<T> *&parent,int flag){
@@ -185,6 +189,18 @@ public:
         }
     }
 
+    void reset_lsize(node<T> *p){
+        if(p!=NULL){
+            reset_lsize(p->left);
+            p->left_size=reset_help(p->left);
+            reset_lsize(p->right);
+        }
+    }
+    int reset_help(node<T> *p){
+        if(p==NULL)
+            return 0;
+        return reset_help(p->left)+reset_help(p->right)+1;
+    }
 
     //exer7
     bool isBST(node<T> *p)//using queue to judge BST
@@ -253,12 +269,63 @@ public:
         return find_kth_min2(k-count,r->right);
     }
 
+    //exer 10
+    void find_X(T x){
+        node<T> *p=root;
+        node<T> *q=new node<T>();
+        bool flag= true;
+        while(p!=NULL){
+            if(p->data==x)
+                break;
+            q=p;
+            if(p->data>x) {
+                p = p->left;
+                if (p!=NULL&&p->data < x) {
+                    flag=false;
+                    break;
+                }
+            }
+            else if(p->data<x) {
+                p = p->right;
+                if (p!=NULL&&p->data > x) {
+                    flag = false;
+                    break;
+                }
+            }
+        }
+        if(p!=NULL&&flag) {
+            p->count++;
+            cout << p->data<<"--"<<p->count<<endl;
+        }
+        else{
+            cout<<"insert_construct parent: "<<q->data<<endl;
+            if(q->data<x&&q->right==NULL)
+                q->right=new node<T> (x);
+            else if(q->data>x&&q->left==NULL)
+                q->left=new node<T> (x);
+            else {
+                node<T> *tmp = new node<T>(x);
+                if (q->data < x && q->right != NULL) {
+                    tmp->right = q->right;
+                    q->right = tmp;
+                }
+                else {
+                    tmp->left=q->left;
+                    q->left=tmp;
+                }
+            }
+            reset_lsize(root);
+        }
+        show(root);
+        cout<<endl;
+    }
+
 };
 int main() {
-    int a[7]={4,2,1,3,7,5,8};
-    bst<int> b(a,7);
+    double a[7]={4,2,1,3,7,5,8};
+    bst<double> b(a,7);
     b.del_node(4);
-    b.insert(4  );
+    b.insert_construct(4);
     b.show(b.get_root());
     if(b.isBST(b.get_root()))
         cout<<endl<<"YES"<<endl;
@@ -267,5 +334,8 @@ int main() {
     b.find_kth_min1(4,b.get_root());
     cout<<endl<<"kth min O(h):"<<endl;
     cout<<b.find_kth_min2(4,b.get_root())->data;
+    cout<<endl<<"*"<<endl;
+    b.find_X(0.5);
+
     return 0;
 }
