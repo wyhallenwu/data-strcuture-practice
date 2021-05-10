@@ -221,20 +221,36 @@ public:
     }
 
     //exer9
-    void find_kth_min(int k,node<T> *p){
+    //method 1 the complexity is better  than O(n)
+    //because it is stopped when find the kth minimum
+    void find_kth_min1(int k,node<T> *p){
         int count=0;
-        search_kth_min(k,p,count);
+        bool flag=true;
+        search_kth_min(k,p,count,flag);
     }
-    void search_kth_min(int k,node<T> *p,int &count) {
-        if (p != NULL) {
+    void search_kth_min(int k,node<T> *p,int &count,bool &flag) {
+        if (p != NULL&&flag==true) {
             if (count < k) {
-                search_kth_min(k, p->left, count);
+                search_kth_min(k, p->left, count,flag);
                 count++;
-                if (count == k)
+                if (count == k) {
                     cout << p->data << "--";
-                search_kth_min(k, p->right, count);
+                    flag=false;
+                }
+                search_kth_min(k, p->right, count,flag);
             }
         }
+    }
+
+    //method 2 introducing the number of left subtree
+    //the complexity is O(h)
+    node<T>* find_kth_min2(int k,node<T> *r){
+        int count = r->left_size+1;
+        if(count==k)
+            return r;
+        if(count>k)
+            return find_kth_min2(k,r->left);
+        return find_kth_min2(k-count,r->right);
     }
 
 };
@@ -248,6 +264,8 @@ int main() {
         cout<<endl<<"YES"<<endl;
     b.show_greater(b.get_root(), 3);
     cout<<endl;
-    b.find_kth_min(4,b.get_root());
+    b.find_kth_min1(4,b.get_root());
+    cout<<endl<<"kth min O(h):"<<endl;
+    cout<<b.find_kth_min2(4,b.get_root())->data;
     return 0;
 }
