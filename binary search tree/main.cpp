@@ -317,6 +317,7 @@ public:
                     q->left=tmp;
                 }
             }
+            //after insert a new node, we need to reset the l_size.
             reset_lsize(root);
         }
         show(root);
