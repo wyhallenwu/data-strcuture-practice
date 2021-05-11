@@ -274,6 +274,7 @@ public:
         node<T> *p=root;
         node<T> *q=new node<T>();
         bool flag= true;
+        //find the parent node which determine where to insert
         while(p!=NULL){
             if(p->data==x)
                 break;
@@ -293,10 +294,12 @@ public:
                 }
             }
         }
+        //if there has existed a node. Let count plus 1
         if(p!=NULL&&flag) {
             p->count++;
             cout << p->data<<"--"<<p->count<<endl;
         }
+        // if the node hasn't been construct. construct the node and insert.
         else{
             cout<<"insert_construct parent: "<<q->data<<endl;
             if(q->data<x&&q->right==NULL)
