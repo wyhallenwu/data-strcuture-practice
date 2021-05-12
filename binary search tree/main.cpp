@@ -1,5 +1,6 @@
 #include <iostream>
 #include <queue>
+#include <stack>
 using namespace std;
 template <typename T>
 struct node{
@@ -203,26 +204,20 @@ public:
     }
 
     //exer7
-    bool isBST(node<T> *p)//using queue to judge BST
-    {
-        queue<node<T> *> q;
-        if(p!=NULL)
-            q.push(p);
-        while(!q.empty()){
-            if(p->left!=NULL) {
-                q.push(p->left);
-                if (p->left->data > p->data)
-                    return false;
-            }
-            if(p->right!=NULL) {
-                q.push(p->right);
-                if (p->right->data < p->data)
-                    return false;
-            }
-            q.pop();
-            p=q.front();
+    bool isBST(node<T> *p){
+        bool flag=true;
+        stack<node<T> *> s;
+        isBST_help(p,flag,s);
+        return flag;
+    }
+    void isBST_help(node<T> *p,bool &flag,stack<node<T>*> &s) {
+        if (p != NULL) {
+            isBST_help(p->left,flag,s);
+            s.push(p);
+            if(p->data<s.top()->data)
+                flag=false;
+            isBST_help(p->right,flag,s);
         }
-        return true;
     }
 
     //exer8
@@ -339,6 +334,9 @@ int main() {
     cout<<endl<<"kth min O(h):"<<endl;
     cout<<b.find_kth_min2(4,b.get_root())->data;
     cout<<endl<<"*"<<endl;
+    b.find_X(0.5);
+    b.find_X(0.5);
+    b.find_X(0.5);
     b.find_X(0.5);
 
     return 0;
