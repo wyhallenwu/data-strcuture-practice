@@ -1,0 +1,24 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+C:/Users/wuliwyh/Desktop/github/data-structure-practice/Sorting/bubble sort.h
+
+C:/Users/wuliwyh/Desktop/github/data-structure-practice/Sorting/main.cpp
+iostream
+-
+selection sort.h
+C:/Users/wuliwyh/Desktop/github/data-structure-practice/Sorting/selection sort.h
+bubble sort.h
+C:/Users/wuliwyh/Desktop/github/data-structure-practice/Sorting/bubble sort.h
+quick sort.h
+C:/Users/wuliwyh/Desktop/github/data-structure-practice/Sorting/quick sort.h
+
+C:/Users/wuliwyh/Desktop/github/data-structure-practice/Sorting/quick sort.h
+
+C:/Users/wuliwyh/Desktop/github/data-structure-practice/Sorting/selection sort.h
+
