@@ -8,6 +8,7 @@ void show(T array[])
 {
     for(int i=0;i<10;i++)
         cout<<array[i]<<"--";
+    cout<<endl;
 }
 
 template <typename T>

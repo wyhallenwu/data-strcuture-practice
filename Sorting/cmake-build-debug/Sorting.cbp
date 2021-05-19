@@ -80,6 +80,9 @@
 				</MakeCommands>
 			</Target>
 		</Build>
+		<Unit filename="C:/Users/wuliwyh/Desktop/github/data-structure-practice/Sorting/ insertion sort.h">
+			<Option target="Sorting"/>
+		</Unit>
 		<Unit filename="C:/Users/wuliwyh/Desktop/github/data-structure-practice/Sorting/bubble sort.h">
 			<Option target="Sorting"/>
 		</Unit>
@@ -90,6 +93,9 @@
 			<Option target="Sorting"/>
 		</Unit>
 		<Unit filename="C:/Users/wuliwyh/Desktop/github/data-structure-practice/Sorting/selection sort.h">
+			<Option target="Sorting"/>
+		</Unit>
+		<Unit filename="C:/Users/wuliwyh/Desktop/github/data-structure-practice/Sorting/shell sort.h">
 			<Option target="Sorting"/>
 		</Unit>
 		<Unit filename="C:/Users/wuliwyh/Desktop/github/data-structure-practice/Sorting/CMakeLists.txt">
