@@ -4,6 +4,7 @@
 CMakeFiles/Sorting.dir/main.cpp.obj: ../\ insertion\ sort.h
 CMakeFiles/Sorting.dir/main.cpp.obj: ../bubble\ sort.h
 CMakeFiles/Sorting.dir/main.cpp.obj: ../main.cpp
+CMakeFiles/Sorting.dir/main.cpp.obj: ../merge\ sort.h
 CMakeFiles/Sorting.dir/main.cpp.obj: ../quick\ sort.h
 CMakeFiles/Sorting.dir/main.cpp.obj: ../selection\ sort.h
 CMakeFiles/Sorting.dir/main.cpp.obj: ../shell\ sort.h
