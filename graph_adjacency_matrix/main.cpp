@@ -280,7 +280,7 @@ public:
 
     void Dijsktra(T data_) // non-directed graph shortest path
     {
-        bool *sptSet = new bool[size];
+        bool *sptSet = new bool[size];     //we generate a shortest path tree set
         double *distance = new double[size];
         for(int i=0;i<size;i++){
             sptSet[i]=false;

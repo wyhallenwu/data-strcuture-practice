@@ -3,4 +3,4 @@ project(Sorting)
 
 set(CMAKE_CXX_STANDARD 14)
 
-add_executable(Sorting main.cpp "selection sort.h" "bubble sort.h" "quick sort.h" " insertion sort.h" "shell sort.h" "merge sort.h")
+add_executable(Sorting main.cpp "selection sort.h" "bubble sort.h" "quick sort.h" " insertion sort.h" "shell sort.h" "merge sort.h" "bucket sort.h")

@@ -86,6 +86,9 @@
 		<Unit filename="C:/Users/wuliwyh/Desktop/github/data-structure-practice/Sorting/bubble sort.h">
 			<Option target="Sorting"/>
 		</Unit>
+		<Unit filename="C:/Users/wuliwyh/Desktop/github/data-structure-practice/Sorting/bucket sort.h">
+			<Option target="Sorting"/>
+		</Unit>
 		<Unit filename="C:/Users/wuliwyh/Desktop/github/data-structure-practice/Sorting/main.cpp">
 			<Option target="Sorting"/>
 		</Unit>

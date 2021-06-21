@@ -432,20 +432,19 @@ public:
 
     //Bellman Ford algorithm to find shortest path
     void Bellman_Ford(T data_){
-        bool *visited = new bool[size];
         double *distance = new double [size];
         for(int i=0;i<size;i++){
-            visited[i]=false;
             distance[i]=INT_MAX;
         }
         int source_index=find_index(data_);
         distance[source_index]=0;
-        int count=1;
+        int count=0;
         vector<edge> edge_vec;
-        for(int i=0;i<graph_list[0].relation.size();i++)
-        {
-            edge e(0,graph_list[source_index].relation[i].index,graph_list[source_index].relation[i].weight);
-            edge_vec.push_back(e);
+        for(int j=0;j<size;j++) {
+            for (int i = 0; i < graph_list[j].relation.size(); i++) {
+                edge e(j, graph_list[j].relation[i].index, graph_list[j].relation[i].weight);
+                edge_vec.push_back(e);
+            }
         }
         //first initialize
         for(int i=0;i<edge_vec.size();i++)
@@ -454,11 +453,13 @@ public:
                 distance[edge_vec[i].end]=edge_vec[i].weight;
         }
         //
-        while(count<size-1){
+        while(count<edge_vec.size()-1){
             for(int i=0;i<edge_vec.size();i++)
             {
-                if(distance[edge_vec[i].end]<distance[edge_vec[i].src]+edge_vec[i].weight)
-                    distance[edge_vec[i].end]=distance[edge_vec[i].src]+edge_vec[i].weight;
+                int u=edge_vec[i].src;
+                int v=edge_vec[i].end;
+                if(distance[v]>distance[u]+edge_vec[i].weight&&distance[u]!=INT_MAX)
+                    distance[v]=distance[u]+edge_vec[i].weight;
             }
             count++;
         }
@@ -548,20 +549,20 @@ void test4()
 void test5(){
     int a[6]={0,1,2,3,4,5};
     graph_adjacency_list<int> l(a,6,10);
-    l.change_relation(0,1,45);
-    l.change_relation(0,2,50);
-    l.change_relation(0,3,15);
-    l.change_relation(1,2,5);
-    l.change_relation(1,5,15);
-    l.change_relation(1,4,20);
-    l.change_relation(3,0,10);
-    l.change_relation(3,1,10);
-    l.change_relation(3,4,79);
-    l.change_relation(4,1,30);
-    l.change_relation(5,4,20);
-    l.Bellman_Ford(0);
+    l.change_relation(0,1,-3);
+    l.change_relation(0,2,2);
+    l.change_relation(0,3,3);
+    l.change_relation(1,2,4);
+    l.change_relation(1,5,5);
+    l.change_relation(1,4,6);
+    l.change_relation(3,0,7);
+    l.change_relation(3,1,8);
+    l.change_relation(3,4,9);
+    l.change_relation(4,1,10);
+    l.change_relation(5,4,11);
+    l.Bellman_Ford(3);
 }
 int main(){
-    test2();
+    test1();
     return 0;
 }
